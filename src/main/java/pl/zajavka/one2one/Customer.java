@@ -1,4 +1,4 @@
-package pl.zajavka;
+package pl.zajavka.one2one;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

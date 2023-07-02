@@ -1,6 +1,8 @@
-package pl.zajavka;
+package pl.zajavka.one2one;
 
-public class ExampleRunner {
+import pl.zajavka.HibernateUtil;
+
+public class One2OneRunner {
     public static void main(String[] args) {
         CustomerRepository customerRepository = new CustomerRepository();
         customerRepository.deleteAll();
