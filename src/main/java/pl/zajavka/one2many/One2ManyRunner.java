@@ -28,7 +28,8 @@ public class One2ManyRunner {
 //        System.out.println("RESULT: " + ownerRepository.selectExample6("Justyna"));
 
 //        ownerRepository.saveTestData();
-        ownerRepository.selectExample9();
+//        ownerRepository.selectExample9();
+        ownerRepository.selectExampleNamedQuery("adrian@zajavka.pl");
 
 //       ownerRepository.insertHQL();
 //        System.out.println(ownerRepository.findAll());

@@ -380,5 +380,20 @@ public class OwnerRepository {
             session.getTransaction().commit();
         }
     }
+    void selectExampleNamedQuery(final String email) {
+        try (Session session = HibernateUtil.getSession()) {
+            if (Objects.isNull(session)) {
+                throw new RuntimeException("Session is null");
+            }
+            session.beginTransaction();
+
+            session.createNamedQuery("Owner.findOwnerByEmail", Owner.class)
+                    .setParameter("email",email)
+                    .getResultList()
+                    .forEach(entity -> System.out.println("###Entity: " + entity));
+
+            session.getTransaction().commit();
+        }
+    }
 
 }
