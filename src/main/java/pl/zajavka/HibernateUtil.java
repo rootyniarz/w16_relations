@@ -11,6 +11,7 @@ import pl.zajavka.many2many.Employee;
 import pl.zajavka.many2many.Project;
 import pl.zajavka.one2many.Owner;
 import pl.zajavka.one2many.Pet;
+import pl.zajavka.one2many.Toy;
 import pl.zajavka.one2one.Address;
 import pl.zajavka.one2one.Customer;
 
@@ -25,7 +26,7 @@ public class HibernateUtil {
             Map.entry(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect"),
             Map.entry(Environment.HBM2DDL_AUTO, "none"),
             Map.entry(Environment.SHOW_SQL, true),
-            Map.entry(Environment.FORMAT_SQL, false)
+            Map.entry(Environment.FORMAT_SQL, true)
     );
     private static final SessionFactory sessionFactory = loadSessionFactory();
 
@@ -35,9 +36,10 @@ public class HibernateUtil {
                     .applySettings(SETTINGS)
                     .build();
             Metadata metadata = new MetadataSources(standardRegistry)
-//                    .addAnnotatedClass(Customer.class)
-//                    .addAnnotatedClass(Address.class)
+                    .addAnnotatedClass(Customer.class)
+                    .addAnnotatedClass(Address.class)
                     .addAnnotatedClass(Pet.class)
+                    .addAnnotatedClass(Toy.class)
                     .addAnnotatedClass(Owner.class)
                     .addAnnotatedClass(Employee.class)
                     .addAnnotatedClass(Project.class)

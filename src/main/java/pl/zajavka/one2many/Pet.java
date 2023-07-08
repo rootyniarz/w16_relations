@@ -1,6 +1,10 @@
 package pl.zajavka.one2many;
+
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -25,9 +29,17 @@ public class Pet {
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "pet_toy",
+            joinColumns = {@JoinColumn(name = "pet_id")},
+            inverseJoinColumns = {@JoinColumn(name = "toy_id")}
+    )
+    private Set<Toy> toys;
+
     @Override
     public String toString() {
         return "Pet(id=" + this.getId() + ", name=" + this.getName()
-                + ", breed=" + this.getBreed() + ")";
+                + ", breed=" + this.getBreed() + ", toys=" + this.getToys() + ")";
     }
 }
