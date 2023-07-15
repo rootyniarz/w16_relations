@@ -24,7 +24,7 @@ public class ExampleData {
                 .name("Stefan")
                 .surname("Nowacki")
                 .phone("+48 589 245 114")
-                .email("stefan@zajavka.p1")
+                .email("stefan@zajavka.pl")
                 .address(someAddress1())
                 .build();
     }
@@ -34,7 +34,7 @@ public class ExampleData {
                 .name("Adrian")
                 .surname("Paczkomat")
                 .phone("+48 894 256 331")
-                .email("adrian4ajavka.p1")
+                .email("adrian@zajavka.pl")
                 .address(someAddress2())
                 .build();
     }

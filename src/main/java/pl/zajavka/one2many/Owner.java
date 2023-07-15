@@ -1,6 +1,9 @@
 package pl.zajavka.one2many;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import java.util.Set;
 
 @Getter
@@ -38,6 +41,7 @@ public class Owner {
     private String email;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner", cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SELECT)
     private Set<Pet> pets;
 
     @Override

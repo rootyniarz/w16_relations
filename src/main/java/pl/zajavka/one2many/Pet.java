@@ -29,7 +29,7 @@ public class Pet {
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "pet_toy",
             joinColumns = {@JoinColumn(name = "pet_id")},

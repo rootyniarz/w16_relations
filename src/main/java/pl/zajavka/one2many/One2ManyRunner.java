@@ -6,6 +6,8 @@ public class One2ManyRunner {
     public static void main(String[] args) {
         OwnerRepository ownerRepository = new OwnerRepository();
         PetRepository petRepository = new PetRepository();
+
+        System.out.println(ownerRepository.getOwner(1));
 //        ownerRepository.insertData(ExampleData.someOwner1(),Set.of(ExampleData.somePet1(), ExampleData.somePet2()));
 //        ownerRepository.insertData(ExampleData.someOwner2(),Set.of(ExampleData.somePet3(), ExampleData.somePet4()));
 //        ownerRepository.insertData(ExampleData.someOwner3(),Set.of());
@@ -29,7 +31,7 @@ public class One2ManyRunner {
 
 //        ownerRepository.saveTestData();
 //        ownerRepository.selectExample9();
-        ownerRepository.selectExampleNamedQuery("adrian@zajavka.pl");
+//        ownerRepository.selectExampleNamedQuery("adrian@zajavka.pl");
 
 //       ownerRepository.insertHQL();
 //        System.out.println(ownerRepository.findAll());
