@@ -2,6 +2,8 @@ package pl.zajavka.one2one;
 
 import pl.zajavka.HibernateUtil;
 
+import java.util.List;
+
 public class One2OneRunner {
     public static void main(String[] args) {
         CustomerRepository customerRepository = new CustomerRepository();
@@ -10,7 +12,11 @@ public class One2OneRunner {
         Customer customer1 = customerRepository.insertCustomer(ExampleData.someCustomer1());
         Customer customer2 = customerRepository.insertCustomer(ExampleData.someCustomer2());
 
-        customerRepository.criteriaDeleteExample3();
+        List<Customer> customers = customerRepository.listCustomers();
+        customers.forEach(customer -> System.out.println("###c" + customer));
+
+
+//        customerRepository.criteriaDeleteExample3();
 
 
 //        customerRepository.listCustomers()

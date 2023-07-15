@@ -24,16 +24,25 @@ public class HibernateUtil {
             Map.entry(Environment.USER, "postgres"),
             Map.entry(Environment.PASS, "postgres"),
             Map.entry(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect"),
+            Map.entry(Environment.CONNECTION_PROVIDER, "org.hibernate.hikaricp.internal.HikariCPConnectionProvider"),
             Map.entry(Environment.HBM2DDL_AUTO, "none"),
             Map.entry(Environment.SHOW_SQL, true),
             Map.entry(Environment.FORMAT_SQL, true)
     );
+    private static final Map<String, Object> HIKARI_CP_SETTINGS = Map.ofEntries(
+            Map.entry("hibernate.hikari.connectionTimeout", "20000"),
+            Map.entry("hibernate.hikari.minimumIdle", "10"),
+            Map.entry("hibernate.hikari.maximumPoolSize", "20"),
+            Map.entry("hibernate.hikari.idleTimeout", "300000")
+    );
+
     private static final SessionFactory sessionFactory = loadSessionFactory();
 
     private static SessionFactory loadSessionFactory() {
         try {
             ServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(SETTINGS)
+                    .applySettings(HIKARI_CP_SETTINGS)
                     .build();
             Metadata metadata = new MetadataSources(standardRegistry)
                     .addAnnotatedClass(Customer.class)
