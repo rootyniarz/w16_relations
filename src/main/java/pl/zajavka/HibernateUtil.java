@@ -7,6 +7,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
+import pl.zajavka.cache.CachedEmployee;
 import pl.zajavka.many2many.Employee;
 import pl.zajavka.many2many.Project;
 import pl.zajavka.one2many.Owner;
@@ -27,7 +28,7 @@ public class HibernateUtil {
             Map.entry(Environment.CONNECTION_PROVIDER, "org.hibernate.hikaricp.internal.HikariCPConnectionProvider"),
             Map.entry(Environment.HBM2DDL_AUTO, "none"),
             Map.entry(Environment.SHOW_SQL, true),
-            Map.entry(Environment.FORMAT_SQL, true)
+            Map.entry(Environment.FORMAT_SQL, false)
     );
     private static final Map<String, Object> HIKARI_CP_SETTINGS = Map.ofEntries(
             Map.entry("hibernate.hikari.connectionTimeout", "20000"),
@@ -50,6 +51,7 @@ public class HibernateUtil {
                     .addAnnotatedClass(Pet.class)
                     .addAnnotatedClass(Toy.class)
                     .addAnnotatedClass(Owner.class)
+                    .addAnnotatedClass(CachedEmployee.class)
                     .addAnnotatedClass(Employee.class)
                     .addAnnotatedClass(Project.class)
                     .getMetadataBuilder()
