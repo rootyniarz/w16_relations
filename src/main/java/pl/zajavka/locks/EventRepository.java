@@ -1,10 +1,13 @@
 package pl.zajavka.locks;
 
+import jakarta.persistence.LockModeType;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
+import org.hibernate.LockMode;
 import org.hibernate.Session;
 import pl.zajavka.HibernateUtil;
 
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
 
@@ -47,6 +50,7 @@ public class EventRepository {
             }
             session.beginTransaction();
             EventEntity event = session.find(EventEntity.class, eventId);
+            session.lock(event, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
             if (event.getCapacity() <= event.getTickets().size()) {
                 throw new RuntimeException("Capacity exceeded");
             }
@@ -59,5 +63,16 @@ public class EventRepository {
             session.getTransaction().commit();
         }
     }
+    void changeDateTime(OffsetDateTime newDateTime, Long eventId) {
+        try (Session session = HibernateUtil.getSession()) {
+            if (Objects.isNull(session)) {
+                throw new RuntimeException("Session is null");
+            }
+            session.beginTransaction();
+            EventEntity event = session.find(EventEntity.class, eventId);
+            event.setDateTime(newDateTime);
+            session.getTransaction().commit();
+        }
+    }
 
-}
+    }

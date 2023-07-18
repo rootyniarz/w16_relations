@@ -18,7 +18,7 @@ public class EventEntityData {
     static EventEntity someEventEntity2() {
         return EventEntity.builder()
                 .eventName("Koncert")
-                .capacity(2)
+                .capacity(1)
                 .dateTime(OffsetDateTime.of(LocalDate.of(2022, 9, 14), LocalTime.of(21, 0, 0), ZoneOffset
                         .ofHours(2)))
                 .build();
