@@ -9,6 +9,8 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.stat.Statistics;
 import pl.zajavka.cache.CachedEmployee;
+import pl.zajavka.locks.EventEntity;
+import pl.zajavka.locks.TicketEntity;
 import pl.zajavka.many2many.Employee;
 import pl.zajavka.many2many.Project;
 import pl.zajavka.one2many.Owner;
@@ -27,7 +29,7 @@ public class HibernateUtil {
             Map.entry(Environment.PASS, "postgres"),
             Map.entry(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect"),
             Map.entry(Environment.CONNECTION_PROVIDER, "org.hibernate.hikaricp.internal.HikariCPConnectionProvider"),
-            Map.entry(Environment.GENERATE_STATISTICS, true),
+//            Map.entry(Environment.GENERATE_STATISTICS, true),
             Map.entry(Environment.HBM2DDL_AUTO, "none"),
             Map.entry(Environment.SHOW_SQL, true),
             Map.entry(Environment.FORMAT_SQL, false),
@@ -66,6 +68,8 @@ public class HibernateUtil {
                     .addAnnotatedClass(CachedEmployee.class)
                     .addAnnotatedClass(Employee.class)
                     .addAnnotatedClass(Project.class)
+                    .addAnnotatedClass(EventEntity.class)
+                    .addAnnotatedClass(TicketEntity.class)
                     .getMetadataBuilder()
                     .build();
             return metadata.getSessionFactoryBuilder().build();
