@@ -8,6 +8,8 @@ import org.hibernate.Session;
 import pl.zajavka.HibernateUtil;
 
 import java.time.OffsetDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -50,7 +52,9 @@ public class EventRepository {
             }
             session.beginTransaction();
             EventEntity event = session.find(EventEntity.class, eventId);
-            session.lock(event, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+            Map<String, Object> properties = new HashMap<>();
+            properties.put("jakarta.persistence.lock.timeout", 1000L);
+            session.lock(event, LockModeType.PESSIMISTIC_WRITE, properties);
             if (event.getCapacity() <= event.getTickets().size()) {
                 throw new RuntimeException("Capacity exceeded");
             }
