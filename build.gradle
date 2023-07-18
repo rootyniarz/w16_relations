@@ -19,8 +19,10 @@ ext {
     springVersion = '5.3.23'
     postgresqlDriverVersion='42.5.0'
     jakartaPersistanceApiVersion = '3.1.0'
-    hibernateVersion='6.1.3.Final'
+    hibernateVersion='6.1.4.Final'
     hikariVersion='5.0.1'
+    ehcache_version="3.10.2"
+    jaxb_api_version="2.3.1"
 }
 
 dependencies {
@@ -31,6 +33,17 @@ dependencies {
     implementation "org.hibernate.orm:hibernate-hikaricp:$hibernateVersion"
     implementation "com.zaxxer:HikariCP:$hikariVersion"
     implementation "org.postgresql:postgresql:$postgresqlDriverVersion"
+    implementation "org.hibernate.orm:hibernate-core:$hibernateVersion"
+    // Integracja z JCache - ustandaryzowanego API do integracji z dostawcami cache
+    implementation "org.hibernate:hibernate-jcache:$hibernateVersion"
+    // Ehcache - dostawca, który spełnia wspomnianą specyfikację JSP107
+    implementation "org.ehcache:ehcache:$ehcache_version"
+    // Biblioteki potrzebne do parsowania konfiguracji Ehcache
+    implementation "javax.xml.bind:jaxb-api:$jaxb_api_version"
+    implementation "com.sun.xml.bind:jaxb-impl:$jaxb_api_version"
+
+
+
     testCompileOnly "org.projectlombok:lombok:$lombokVersion"
     testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"

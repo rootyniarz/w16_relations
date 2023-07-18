@@ -1,6 +1,9 @@
 package pl.zajavka.many2many;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Set;
@@ -9,6 +12,8 @@ import java.util.Set;
 @Setter
 @Entity
 @Builder
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "employee")

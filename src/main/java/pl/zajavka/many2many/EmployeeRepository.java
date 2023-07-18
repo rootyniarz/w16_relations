@@ -1,5 +1,6 @@
 package pl.zajavka.many2many;
 import org.hibernate.Session;
+import org.hibernate.stat.Statistics;
 import pl.zajavka.HibernateUtil;
 
 import java.util.*;
@@ -69,5 +70,24 @@ public class EmployeeRepository {
             session.getTransaction().commit();
         }
     }
+
+    Optional<Employee> getEmployeeWithStats(Integer employeeId) {
+        try (Session session = HibernateUtil.getSession()) {
+            if (Objects.isNull(session)) {
+                throw new RuntimeException("Session is null");
+            }
+            Employee employee = session.find(Employee.class, employeeId);
+                    stats(HibernateUtil.getStatistics());
+            System.out.printf("###Employee: %s %s%n", employee.getName(), employee.getSurname());
+            return Optional.ofNullable(employee);
+        }
+    }
+    public static void stats(Statistics statistics) {
+        System.out.println("Misses in second level cache:" + statistics.getSecondLevelCacheMissCount());
+        System.out.println("Added to second level cache:" + statistics.getSecondLevelCachePutCount());
+        System.out.println("Found in second level cache:" + statistics.getSecondLevelCacheHitCount());
+        statistics.clear();
+    }
+
 
 }
